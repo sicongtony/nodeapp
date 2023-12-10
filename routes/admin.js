@@ -1,7 +1,7 @@
 const path = require('path');
 
 const express = require('express');
-const { body } = require('express-validator');
+const { query } = require('express-validator');
 
 const adminController = require('../controllers/admin');
 const isAuth = require('../middleware/is-auth');
@@ -18,12 +18,12 @@ router.get('/products', isAuth, adminController.getProducts);
 router.post(
   '/add-product',
   [
-    body('title')
+    query('title')
       .isString()
       .isLength({ min: 3 })
       .trim(),
-    body('price').isFloat(),
-    body('description')
+    query('price').isFloat(),
+    query('description')
       .isLength({ min: 5, max: 400 })
       .trim()
   ],
@@ -36,12 +36,12 @@ router.get('/edit-product/:productId', isAuth, adminController.getEditProduct);
 router.post(
   '/edit-product',
   [
-    body('title')
+    query('title')
       .isString()
       .isLength({ min: 3 })
       .trim(),
-    body('price').isFloat(),
-    body('description')
+    query('price').isFloat(),
+    query('description')
       .isLength({ min: 5, max: 400 })
       .trim()
   ],
